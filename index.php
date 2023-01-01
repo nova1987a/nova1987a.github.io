@@ -5,9 +5,9 @@
             <div class="row g-2">
                 <div class="col-8 gv-3 px-4">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <p>   美濃湖原名瀰濃湖、中圳湖、中正湖，興建於西元1748年，湖面積達21公頃，是僅次於澄清湖的高雄市第二大人工湖。
-                        西北背山、三面環田，湖光山色、景色秀麗，美濃湖全區沿著湖畔設有環湖步道及自行車道，遊客喜歡來此輕騎、散步或垂釣，中正湖旅遊服務中心提供出租單車。</p>
-                        <p>   美濃湖東側規劃栽種紅花鐵刀木、落羽杉、水柳、鳳凰木及苦楝等喬木，以及開花性灌木及水生植物，讓美濃湖除了美景，還多了分生態教育功能。</p>
+                       <h2>Top Rated Places</h2>
+                        <p>   Sed sit amet augue congue, tincidunt ligula pretium, acumin dolor ligula dolor condimentum leo. 
+                              Proin vel diam sit amet orci tincidunt commodo. Nulla acumin ligula, dolor sit buncha elementum ligula.</p>
                         <div class="carousel-inner">
                             <!-- image slide from folder w/ php -->
                             <?php
