@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-    <main class="form-signin container-sm">
+    <main class="form-signin ">
         <form>
         <h2>Login</h2>
             <p>Please fill in your credentials to login.</p>
@@ -88,26 +88,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo '<div class="alert alert-danger">' . $login_err . '</div>';
             }
             ?>
-        <div class="row " action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="col-md">
+        <div class="row justify-content-center" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="col-3">
                 <div class="form-floating mb-3">
                     <input type="name" name="username"class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" id="floatingInputGrid" placeholder="Username">
                     <span class="invalid-feedback"><?php echo $username_err; ?></span>
                     <label for="floatingInputGrid">Name</label>
                 </div>
             </div>
-            <div class="col-md">
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3">
                 <div class="form-floating mb-3">
                     <input type="password" name="passwd" class="form-control <?php echo (!empty($passwd_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $passwd; ?>" id="floatingInputGrid" placeholder="Password">
                     <span class="invalid-feedback"><?php echo $passwd_err; ?></span>
                     <label for="floatingInputGrid">Password</label>
                 </div>
             </div>
-            <div calss="col-xs-6">
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-2">
                 <input type="submit" class="btn btn-primary mb-3" value="Login">
             </div>
             <p>Don't have an account? <a href="signup.php">Sign up now</a>.</p>
         </div>
+        
         </form>
     </main>
     </body>
