@@ -78,7 +78,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     unset($pdo);
 }
 ?>
-    <div class="container mt-3">
+
+    <main class="form-signin container-sm">
+        <form>
         <h2>Login</h2>
             <p>Please fill in your credentials to login.</p>
             <?php
@@ -86,26 +88,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo '<div class="alert alert-danger">' . $login_err . '</div>';
             }
             ?>
-        <form class="row g-3" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="mb-3 row">
-                <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <div class="col-sm-10">
-                    <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+        <div class="row " action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="col-md">
+                <div class="form-floating mb-3">
+                    <input type="name" name="username"class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" id="floatingInputGrid" placeholder="Username">
                     <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                    <label for="floatingInputGrid">Name</label>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label class="form-label">Password</label>
-                 <div class="col-sm-10">
-                    <input type="password" name="passwd" class="form-control <?php echo (!empty($passwd_err)) ? 'is-invalid' : ''; ?>" >
+            <div class="col-md">
+                <div class="form-floating mb-3">
+                    <input type="password" name="passwd" class="form-control <?php echo (!empty($passwd_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $passwd; ?>" id="floatingInputGrid" placeholder="Password">
                     <span class="invalid-feedback"><?php echo $passwd_err; ?></span>
+                    <label for="floatingInputGrid">Password</label>
                 </div>
             </div>
-            <div calss="mb-3">
+            <div calss="col-xs-6">
                 <input type="submit" class="btn btn-primary mb-3" value="Login">
             </div>
             <p>Don't have an account? <a href="signup.php">Sign up now</a>.</p>
+        </div>
         </form>
-    </div>
+    </main>
     </body>
 </html>
