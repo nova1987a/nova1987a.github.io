@@ -4,7 +4,7 @@
 //Initialize the session
 session_start();
 // Check if the user is already logged in, if yes => redirect to welcome page
-if(!isset($_SESSION["loggedin"]) || $SESSION["loggedin"] !== true) {
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: ../login.php");
     exit;
 }
@@ -18,12 +18,12 @@ $new_password_err = $confirm_password_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate new password
-    if(empty(trim($_POST['passwd']))) {
-        $passwd_err = "Please enter a password";
-    } elseif(strlen(trim($_POST['passwd'])) < 6 ) {
-        $passwd_err = "Password must have at least 6 characters.";
+    if(empty(trim($_POST['new_password']))) {
+        $new_password_err = "Please enter a password";
+    } elseif(strlen(trim($_POST['new_password'])) < 6 ) {
+        $new_password_err = "Password must have at least 6 characters.";
     } else {
-        $passwd = trim($_POST['passwd']);
+        $new_password = trim($_POST['new_password']);
     }
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
@@ -35,12 +35,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     // Check input error before inserting
-    if(emtpy($passwd_err) && empty($confirm_password_err)) {
+    if(empty($new_password_err) && empty($confirm_password_err)) {
         $sql = "UPDATE users SET passwd = :passwd WHERE id = :id";
-        if($stmt->$pdo->prepare($sql)) {
+        if($stmt = $pdo->prepare($sql)) {
             $stmt->bindParam(":passwd", $param_passwd, PDO::PARAM_STR);
             $stmt->bindParam(":id", $param_id, PDO::PARAM_INT);
-            $param_passwd = password_hash($new_password);
+            $param_passwd = password_hash($new_password, PASSWORD_DEFAULT);
             $param_id = $_SESSION['id'];
             
             //Execute it
@@ -60,20 +60,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     unset($pdo);
 }
 ?>
-        <div class="container-xl">
+        <div class="text-center">
             <h2>Reset Password</h2>
             <p>Please fill out below form to reset your password</p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div class="mb-3 row">
+                <div class="mb-3 row justify-content-center">
                     <label for="inputPassword" class="form-label" >New Password</label>
-                    <div class="col-sm-10">
+                    <div class="col-3">
                         <input type="password" name="new_password" class="form-control <?php echo(!empty($new_password_err)) ? 'is-invalid' : '';?>" value="<?php echo $new_password; ?>" >
                         <span class="invalid-feedback"><?php echo $new_password_err; ?></span>
                     </div>
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3 row justify-content-center">
                     <label for="inputPassword" class="form-label">Confirm Password</label>
-                     <div class="col-sm-10">
+                     <div class="col-3">
                         <input type="password" name="confirm_password" class="form-control <?php echo(!empty($cpmfirm_password_err)) ? 'is-invalid' : '';?>">
                         <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
                     </div>
