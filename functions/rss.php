@@ -8,7 +8,7 @@ function show_title($rssURL) {
             if ($i >= 5)
             break;
             echo "<div>";
-	              echo '<p><strong><a class="feed_title text-decoration-none" href="'. $feed_item->link.'">'.$feed_item->title.'</a></strong></p>';
+	              echo '<p><strong><a class="feed_title text-decoration-none" href="'. $feed_item->link.'" target="_blank">'.$feed_item->title.'</a></strong></p>';
             echo "</div>";
             //echo "<br/>";
             $i ++;
