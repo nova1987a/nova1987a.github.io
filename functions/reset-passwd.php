@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
                 <div calss="mb-3">
-                    <button type="submit" class="btn btn-primary mb-3" value="Submit">Submit</button>
+                    <button type="submit" class="btn btn-primary mb-3" value="Submit" onclick="alert('If password modified successfully, will back to Login page..')" >Submit</button>
                     <a class="btn btn-secondary mb-3" href="manage.php">Cancel</a></button>
                 </div>
             </form>
