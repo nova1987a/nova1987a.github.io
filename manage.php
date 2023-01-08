@@ -1,22 +1,41 @@
 <!-- Php area is referred from https://www.allphptricks.com/upload-file-using-php-save-directory/ -->
 <?php
-// Initialize a session
-session_start();
 // Include config file
 require_once("functions/config.php");
-require "functions/header.php";
+require("functions/manage_header.php");
+include_once('functions/editor_submit.php');
+
+// Initialize a session
+session_start();
 
 // Check if the user is logged in, if not -> login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("Location: http://ab1.novatw.net/login.php");
     exit;
-}
+} 
+
+
 
 ?>
+
         <div class="container-xl mt-4">
+            <h3 class="my-3">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to manage page</h3>
+            <div class="row">
+                <!-- Text editor , refer to https://www.codexworld.com/add-wysiwyg-html-editor-to-textarea-website/ -->
+                <!-- status Msg -->
+                <?php if(!empty($statusMsg)) { ?>
+                <p class="stmsg"><?php echo $statusMsg; ?></p>
+                <?php } ?>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <textarea name="editor" id="editor" rows="10" cols="80">
+                        This is my textarea to be replaced by HTML editor.
+                    </textarea>
+                    <input type="submit" name="send" value="Send">
+                </form>
+            </div>
+
             <div class="row">
                 <div class="col-md-8">
-                <h3 class="my-3">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to manage page</h3>
                 <p>Please upload image for the slide show</p>
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
                     <input type="file" name="image" accept="images/*">
@@ -26,7 +45,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     //******** Upload image function *********
                     // Set where the images is stored
                     if(!empty($_FILES["image"]["name"])) {
-                        //$errors = "";
+                        $errors = "";
                         $target_dir = "images/";
                         $maxsize    = 2097152;
                         $img_file = $_FILES["image"]["name"];
@@ -41,10 +60,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         if(file_exists($path_filename_ext)) {
                             echo "Sorry, file already exists...";
                         } 
-                        if(($img_size >= 2097152) || ($img_size == 0))  {
-                            $errors[] = 'File too large. File must be less than 2 megabytes.';
+                        if(($img_size >= $maxsize) || ($img_size == 0))  {
+                            $errors = 'File too large. File must be less than 2 megabytes.';
                         } 
-                        if (count($errors) === 0) {
+                        if ($errors == null) {
                             move_uploaded_file($temp_name, $path_filename_ext);
                             printf("<br> Great! File uploaded successfully.<br> ");
                         } else {
@@ -56,14 +75,21 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         //print_r($_FILES);
                     }
                     ?>
+                </div>
+            <div class="col gy-3">
+                <a href="functions/reset-passwd.php" class="btn btn-warning"> Reset Your password</a>
+                <a href="logout.php" class="btn btn-danger ml-3"> Sign Out of your account</a>
             </div>
-        <div class="col gy-3">
-            <a href="functions/reset-passwd.php" class="btn btn-warning"> Reset Your password</a>
-            <a href="logout.php" class="btn btn-danger ml-3"> Sign Out of your account</a>
-        </div>
         </div>
         
         
         </div>
     </body>
+    <script src="js/tinymce/tinymce.min.js"></script>
+    <script>
+    tinymce.init({
+        selector: "#editor"
+        
+    });
+    </script>
 </html>
